@@ -1,6 +1,6 @@
 package com.client.ws.rasmooplus.controller;
 
-import com.client.ws.rasmooplus.exception.NotFoudException;
+import com.client.ws.rasmooplus.dto.SubscriptionsTypeDto;
 import com.client.ws.rasmooplus.model.SubscriptionsType;
 import com.client.ws.rasmooplus.service.SubscritionsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SubscriptionsTypeController {
     @Autowired
     private SubscritionsTypeService subscritionsTypeService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<SubscriptionsType>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(subscritionsTypeService.findAll());
     }
@@ -25,6 +25,11 @@ public class SubscriptionsTypeController {
     @GetMapping("/{id}")
     public ResponseEntity<SubscriptionsType> findById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(subscritionsTypeService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<SubscriptionsType> create(@RequestBody SubscriptionsTypeDto dto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(subscritionsTypeService.create(dto));
     }
 
 }
