@@ -27,10 +27,4 @@ public class SubscriptionsTypeController {
         return ResponseEntity.status(HttpStatus.OK).body(subscritionsTypeService.findById(id));
     }
 
-    @ExceptionHandler(NotFoudException.class)
-    public ResponseEntity<String> notFoundException(NotFoudException n) {
-        String errorMassage = n.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMassage);
-    }
-
 }
