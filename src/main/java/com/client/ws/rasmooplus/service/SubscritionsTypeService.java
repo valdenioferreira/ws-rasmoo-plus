@@ -10,9 +10,10 @@ public interface SubscritionsTypeService {
 
     SubscriptionsType findById(Long id);
 
+
     SubscriptionsType create(SubscriptionsType subscriptionsType);
 
-    SubscriptionsType update(Long id,SubscriptionsType subscriptionsType);
+    SubscriptionsType update(Long id, SubscriptionsType subscriptionsType);
 
     void delete(Long id);
 }
