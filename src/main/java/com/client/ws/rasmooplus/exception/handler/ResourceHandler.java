@@ -1,5 +1,6 @@
 package com.client.ws.rasmooplus.exception.handler;
 
+import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.NotFoudException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,12 @@ public class ResourceHandler {
     @ExceptionHandler(NotFoudException.class)
     public ResponseEntity<String> notFoundException(NotFoudException n) {
         String errorMassage = n.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMassage);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> badRequestException(BadRequestException b) {
+        String errorMassage = b.getMessage();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMassage);
     }
 }
