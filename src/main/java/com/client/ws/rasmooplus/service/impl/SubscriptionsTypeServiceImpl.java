@@ -28,11 +28,7 @@ public class SubscriptionsTypeServiceImpl implements SubscritionsTypeService {
 
     @Override
     public SubscriptionsType findById(Long id) {
-        Optional<SubscriptionsType> optionalSubscriptionsType = subscriptionsTypeRepository.findById(id);
-        if (optionalSubscriptionsType.isEmpty()) {
-            throw new NotFoudException("SubscriptionType não encontrado");
-        }
-        return optionalSubscriptionsType.get();
+        return getSubscriptionsType(id);
     }
 
     @Override
@@ -41,21 +37,38 @@ public class SubscriptionsTypeServiceImpl implements SubscritionsTypeService {
             throw new BadRequestException("Id deve ser nulo");
         }
         return subscriptionsTypeRepository.save(SubscriptionsType.builder()
-                        .id(dto.getId())
-                        .name(dto.getName())
-                        .accessMonths(dto.getAccessMonths())
-                        .price(dto.getPrice())
-                        .productKey(dto.getProductKey())
-                        .build());
+                .id(dto.getId())
+                .name(dto.getName())
+                .accessMonths(dto.getAccessMonths())
+                .price(dto.getPrice())
+                .productKey(dto.getProductKey())
+                .build());
     }
 
     @Override
-    public SubscriptionsType update(Long id, SubscriptionsType subscriptionsType) {
-        return null;
+    public SubscriptionsType update(Long id, SubscriptionsTypeDto dto) {
+        getSubscriptionsType(id);
+
+        return subscriptionsTypeRepository.save(SubscriptionsType.builder()
+                .id(id)
+                .name(dto.getName())
+                .accessMonths(dto.getAccessMonths())
+                .price(dto.getPrice())
+                .productKey(dto.getProductKey())
+                .build());
     }
 
     @Override
     public void delete(Long id) {
+        getSubscriptionsType(id);
+        subscriptionsTypeRepository.deleteById(id);
+    }
 
+    private SubscriptionsType getSubscriptionsType(Long id) {
+        Optional<SubscriptionsType> optionalSubscriptionsType = subscriptionsTypeRepository.findById(id);
+        if (optionalSubscriptionsType.isEmpty()) {
+            throw new NotFoudException("SubscriptionType não encontrado");
+        }
+        return optionalSubscriptionsType.get();
     }
 }
