@@ -26,10 +26,12 @@ public class ResourceHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponseDto> badRequestException(BadRequestException b) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto.builder()
+        LocalDateTime timestamp = LocalDateTime.now();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto.builder()
                 .message(b.getMessage())
-                .httpStatus(HttpStatus.NOT_FOUND)
-                .statusCode(HttpStatus.NOT_FOUND.value())
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .timestamp(Timestamp.valueOf(timestamp))
                 .build());
     }
 }
