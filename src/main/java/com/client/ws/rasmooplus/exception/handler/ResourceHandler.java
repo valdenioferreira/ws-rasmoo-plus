@@ -8,14 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class ResourceHandler {
     @ExceptionHandler(NotFoudException.class)
     public ResponseEntity<ErrorResponseDto> notFoundException(NotFoudException n) {
+        LocalDateTime timestamp = LocalDateTime.now();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto.builder()
                         .message(n.getMessage())
                         .httpStatus(HttpStatus.NOT_FOUND)
                         .statusCode(HttpStatus.NOT_FOUND.value())
+                        .timestamp(Timestamp.valueOf(timestamp))
                         .build());
     }
 
